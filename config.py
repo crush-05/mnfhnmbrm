@@ -8,8 +8,9 @@ class Config(object):
     BOT_TOKEN = os.environ.get("BOT_TOKEN", "7709273644:AAH10vdtxn4jONxqW__kDUVdjNzWkAoDHbg") 
 
     # database config
-    DB_NAME = os.environ.get("DB_NAME","")     
-    DB_URL  = os.environ.get("DB_URL","")
+    DB_URL = ""  # Leave it empty to disable the database
+    DB_NAME = "madflixbotz"  # This will be ignored if DB_URL is empty
+
  
     # other configs
     BOT_UPTIME  = time.time()
