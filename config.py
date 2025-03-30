@@ -92,8 +92,4 @@ Here Is The Help For My Commands."""
 
 
 
-# Jishu Developer 
-# Don't Remove Credit 🥺
-# Telegram Channel @Madflix_Bots
-# Developer @JishuDeveloper
 
