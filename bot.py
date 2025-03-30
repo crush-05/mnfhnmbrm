@@ -6,10 +6,10 @@ from config import Config
 from aiohttp import web
 from route import web_server
 import pyrogram.utils
+import asyncio
 
 pyrogram.utils.MIN_CHAT_ID = -999999999999
 pyrogram.utils.MIN_CHANNEL_ID = -1009999999999
-
 
 class Bot(Client):
 
@@ -30,14 +30,19 @@ class Bot(Client):
         self.mention = me.mention
         self.username = me.username  
         self.uptime = Config.BOT_UPTIME     
+
         if Config.WEBHOOK:
             app = web.AppRunner(await web_server())
             await app.setup()       
-            await web.TCPSite(app, "0.0.0.0", 8080).start()     
+            await web.TCPSite(app, "0.0.0.0", 8000).start()  # Changed to port 8000 
+
         print(f"{me.first_name} Is Started.....✨️")
         for id in Config.ADMIN:
-            try: await self.send_message(Config.LOG_CHANNEL, f"**{me.first_name}  Is Started.....✨️**")                                
-            except: pass
+            try:
+                await self.send_message(Config.LOG_CHANNEL, f"**{me.first_name} Is Started.....✨️**")                                
+            except:
+                pass
+
         if Config.LOG_CHANNEL:
             try:
                 curr = datetime.now(timezone("Asia/Kolkata"))
@@ -45,13 +50,10 @@ class Bot(Client):
                 time = curr.strftime('%I:%M:%S %p')
                 await self.send_message(Config.LOG_CHANNEL, f"**{me.mention} Is Restarted !!**\n\n📅 Date : `{date}`\n⏰ Time : `{time}`\n🌐 Timezone : `Asia/Kolkata`\n\n🉐 Version : `v{__version__} (Layer {layer})`</b>")                                
             except:
-                print("Please Make This Is Admin In Your Log Channel")
+                print("Please Make Sure This Is Admin In Your Log Channel")
 
-Bot().run()
+async def main():
+    bot = Bot()
+    await bot.start()
 
-
-
-# Jishu Developer 
-# Don't Remove Credit 🥺
-# Telegram Channel @Madflix_Bots
-# Developer @JishuDeveloper
+asyncio.run(main())  # ✅ Correct async handling
